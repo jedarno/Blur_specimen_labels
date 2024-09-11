@@ -127,7 +127,7 @@ def CRAFT_inference(craft_model, image, text_threshold=0.4, link_threshold=0.4, 
 
   return boxes, polys, score_text
 
-def CRAFT_Blur_directory(model, directory, margin=12, cuda=True):
+def CRAFT_Blur_directory(model, directory, margin=12, cuda=True, res_dirname="./blurred_images/"):
 
   #generate image list from directory passed
   image_list, _, _ = file_utils.get_files(test_folder)
@@ -153,7 +153,7 @@ def CRAFT_Blur_directory(model, directory, margin=12, cuda=True):
     image = imgproc.loadImage(image_path)
     bboxes, polys, score_text = CRAFT_inference(craft_model, image)
 
-    blur_and_save(image_path, image[:,:,::-1], polys, margin)
+    blur_and_save(image_path, image[:,:,::-1], polys, margin, dirname=res_dirname)
 
   print("elapsed time : {}s".format(time.time() - t))
 
