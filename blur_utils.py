@@ -16,7 +16,7 @@ from . import craft_utils
 from . import imgproc
 from . import file_utils
 
-from craft import CRAFT
+from .craft import CRAFT
 
 from collections import OrderedDict
 
