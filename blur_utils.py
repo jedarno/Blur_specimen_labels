@@ -20,6 +20,17 @@ from .craft import CRAFT
 
 from collections import OrderedDict
 
+def copyStateDict(state_dict):
+    if list(state_dict.keys())[0].startswith("module"):
+        start_idx = 1
+    else:
+        start_idx = 0
+    new_state_dict = OrderedDict()
+    for k, v in state_dict.items():
+        name = ".".join(k.split(".")[start_idx:])
+        new_state_dict[name] = v
+    return new_state_dict
+
 def add_margin(poly, margin):
   """
   Function to apply margin to open cv polyfill.
@@ -130,10 +141,10 @@ def CRAFT_inference(craft_model, image, text_threshold=0.4, link_threshold=0.4, 
 def CRAFT_Blur_directory(model, directory, margin=12, cuda=True, res_dirname="./blurred_images/"):
 
   #generate image list from directory passed
-  image_list, _, _ = file_utils.get_files(test_folder)
+  image_list, _, _ = file_utils.get_files(directory)
 
   #check if results folder exists
-  results_folder = './results/'
+  results_folder = res_dirname
   if not os.path.isdir(results_folder):
       os.mkdir(results_folder)
 
