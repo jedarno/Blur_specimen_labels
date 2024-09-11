@@ -12,9 +12,9 @@ from torch.autograd import Variable
 
 from PIL import Image
 
-import craft_utils
-import imgproc
-import file_utils
+from . import craft_utils
+from . import imgproc
+from . import file_utils
 
 from craft import CRAFT
 
